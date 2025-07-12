@@ -3,7 +3,7 @@ import axios from 'axios';
 import PostCard from '../components/PostCard';
 import Banner from '../components/Banner';
 
-const API_BASE_URL = 'https://suitmedia-backend.suitdev.com';
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 
 export default function IdeasPage() {
@@ -20,10 +20,12 @@ export default function IdeasPage() {
       setLoading(true);
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/api/ideas?page[number]=${page}&page[size]=${size}&append[]=small_image&append[]=medium_image&sort=${sort}`,
-          {
-            headers: { Accept: 'application/json' },
-          }
+            `${API_BASE_URL}/api/ideas?page[number]=${page}&page[size]=${size}&append[]=small_image&append[]=medium_image&sort=${sort}`,
+            {
+                headers: {
+                Accept: 'application/json',
+                },
+            }
         );
 
         setPosts(response.data?.data || []);
